@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HaloController;
+use App\Http\Controllers\BukuController;
 
 Route::get('/', function () {
     //return view('welcome');
@@ -24,7 +24,9 @@ Route::get('/produk-kami', function () {
     return view('pages.produk-kami');
 });
 
-
+Route::get('/buku', [BukuController::class, 'index'])->name('buku');; 
+Route::get('/create', [BukuController::class, 'create'])->name('form-create');; 
+Route::post('/store', [BukuController::class, 'store'])->name('store');; 
 
 
 
