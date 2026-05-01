@@ -2,6 +2,11 @@
 @section('content')
 <div class="container mt-3">
     <h2>Halaman Buku</h2>
+    @if (session('success'))
+      <div class="alert alert-success" role="alert">
+        {{ session ('success') }}
+      </div>
+    @endif
 
     <div class="card">
   <div class="card-body">
@@ -16,7 +21,7 @@
       <th scope="col">Judul Buku</th>
       <th scope="col">Penulis</th>
       <th scope="col">Tahun Terbit</th>
-      <th scope="col">Aksi</th>
+      <th width='20%'>Aksi</th>
     </tr>
   </thead>
   <tbody>
@@ -28,7 +33,8 @@
       <td>{{ $item->tahun_terbit }}</td>
       <td>
         <button type="button" class="btn btn-danger btn-sm">Hapus</button>
-        <button type="button" class="btn btn-warning btn-sm">Edit</button>
+        <a href="{{ route('edit-buku', ['id' => $item->id]) }}" class="btn btn-warning btn-sm">Edit</a>
+        <a href="{{ route('detail-buku', ['id' => $item->id]) }}" class="btn btn-info btn-sm">Detail</a>
       </td>
     </tr>
     @endforeach

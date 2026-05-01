@@ -24,11 +24,18 @@ Route::get('/produk-kami', function () {
     return view('pages.produk-kami');
 });
 
+//ROUTING CREATE
 Route::get('/buku', [BukuController::class, 'index'])->name('buku');; 
 Route::get('/create', [BukuController::class, 'create'])->name('form-create');; 
 Route::post('/store', [BukuController::class, 'store'])->name('store');; 
 
+//ROUTING READ DETAIL
+Route::get('/detail/{id}/detail-data-buku', [BukuController::class, 'show'])->name('detail-buku');; 
 
+//ROUTING EDIT
+Route::get('/edit/{id}/edit-data-buku', [BukuController::class, 'edit'])->name('edit-buku');;
+
+Route::put('/edit/{id}/update-data-buku', [BukuController::class, 'update'])->name('update-buku');; 
 
 
 

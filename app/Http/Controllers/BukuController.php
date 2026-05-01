@@ -56,7 +56,14 @@ class BukuController extends Controller
      */
     public function show(string $id)
     {
-        
+        //query builder
+        //$detailData = DB::table('buku')->where('id', $id)->firstOrFail;
+
+        //ORM
+        // $detailData = Buku::find($id);
+        $detailBuku = Buku::findOrFail($id);
+
+        return view('pages.buku.detail-buku', compact('detailBuku'));
     }
 
     /**
@@ -64,7 +71,10 @@ class BukuController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $detailBuku = Buku::findOrFail($id);
+        return view ('pages.buku.form-create', compact('detailBuku'));
+
+        
     }
 
     /**
@@ -72,7 +82,20 @@ class BukuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate(
+            [
+                'judul'=>'required|min:3',
+                'penulis'=>'required|min:3',
+                'tahun_terbit'=>'required|numeric',
+            ],
+            [
+                'judul.required'=>'judul buku tidak boleh dikosongkan',
+                'judul.min'=>'judul buku terlalu pendek, minimal 3 karakter'
+            ]
+        );
+        Buku::where('id', $id)->update($validated);
+        return redirect()->route('buku')->with('success', 'Data berhasil diubah');
+
     }
 
     /**
